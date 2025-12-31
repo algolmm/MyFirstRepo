@@ -1,26 +1,11 @@
-import urllib
-import os
 import pandas as pd
 from sqlalchemy import create_engine
-from dotenv import load_dotenv
+from db_manager import db
 
-# Carichiamo le variabili dal file .env
-load_dotenv()
-
-password = os.getenv('DB_PASS')
-# Trasforma i caratteri speciali in formato "URL safe"
-encoded_password = urllib.parse.quote_plus(password)
-
-# Costruiamo la stringa di connessione (per Azure SQL)
-# Se usi il Driver 18, ricorda che spesso richiede TrustServerCertificate=yes
-conn_str = (
-    f"mssql+pyodbc://{os.getenv('DB_USER')}:{encoded_password}@"
-    f"{os.getenv('DB_SERVER')}/{os.getenv('DB_NAME')}?"
-    "driver=ODBC+Driver+17+for+SQL+Server")
 
 
 try:
-    engine = create_engine(conn_str)
+    engine = db.engine
     
     # La tua query SQL (sfrutta la tua competenza senior)
     query = "SELECT TOP 10 * FROM SalesLT.Customer"
