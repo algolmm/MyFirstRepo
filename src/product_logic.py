@@ -8,6 +8,9 @@ def esercizio_sintassi_prodotto():
         query = "SELECT Name, ListPrice FROM SalesLT.Product"
         df = pd.read_sql(query, engine)
 
+        # Il modo "Data Scientist" (Vectorization)
+        #df['Name'] = df.apply(lambda x: f"PREMIUM: {x['Name']}" if x['ListPrice'] > 500 else x['Name'], axis=1)
+
         # Trasformiamo la colonna 'Name' in una lista Python per l'esercizio
         nomi_prodotti = df['Name'].tolist()
         prezzi_prodotti = df['ListPrice'].tolist()
